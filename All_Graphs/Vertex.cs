@@ -6,21 +6,15 @@ using System.Threading.Tasks;
 
 namespace All_Graphs
 {
-    class Vertex<T> where T : IComparable
+    class Vertex<T>
     {
-        T value;
+       public T Value;
+       public List<Vertex<T>> Edges = new List<Vertex<T>>();
 
-        public Vertex()
+        public Vertex(T value)
         {
-        }
-        void AddVertex(Vertex<T> v)
-        {
-
-            throw new NotImplementedException();
-        }
-        void RemoveVertex(Vertex<T> v)
-        {
-            throw new NotImplementedException();
+            this.Value = value;
+            Edges = new List<Vertex<T>>();
         }
     }
 
