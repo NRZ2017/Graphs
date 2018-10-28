@@ -8,15 +8,18 @@ namespace All_Graphs
 {
     class Graph<T>
     {
-        private List<Vertex<T>> Vertices = new List<Vertex<T>>();
+        public List<Vertex<T>> Vertices = new List<Vertex<T>>();
         public int EdgeCount { get; private set; }
+
         public Graph()
         {
         }
+
         public void AddVertex(Vertex<T> vert)
         {
             Vertices.Add(vert); 
         }
+
         public bool RemoveVertex(Vertex<T> vertex)
         {
             foreach(var vert in Vertices)
@@ -25,6 +28,7 @@ namespace All_Graphs
             }
             return Vertices.Remove(vertex);
         }
+
         public void AddEdge(Vertex<T> A, Vertex<T> B)
         {
             A.Edges.Add(B);
