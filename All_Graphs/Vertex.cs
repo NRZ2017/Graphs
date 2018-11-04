@@ -9,12 +9,12 @@ namespace All_Graphs
     class Vertex<T>
     {
        public T Value;
-       public List<Vertex<T>> Edges = new List<Vertex<T>>();
+       public Dictionary<Vertex<T>,double> Edges = new Dictionary<Vertex<T>,double>(); //Dictionary<Vertex<T>, double>
 
         public Vertex(T value)
         {
             this.Value = value;
-            Edges = new List<Vertex<T>>();
+            Edges = new Dictionary<Vertex<T>, double>;
         }
     }
 

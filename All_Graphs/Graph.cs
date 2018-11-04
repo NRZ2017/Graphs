@@ -29,14 +29,23 @@ namespace All_Graphs
             return Vertices.Remove(vertex);
         }
 
-        public void AddEdge(Vertex<T> A, Vertex<T> B)
+        public void AddEdge(T a, T b, double weight)
         {
-            A.Edges.Add(B);
-            B.Edges.Add(A);
+            //find the vertex with value a and b
+            Vertex<T> x;
+            Vertex<T> y;
+
+            AddEdge(x, y, weight);
         }
-        public void AddDirectedEdge(Vertex<T> start, Vertex<T> end)
+
+        public void AddEdge(Vertex<T> a, Vertex<T> b, double weight)
         {
-            start.Edges.Add(end);
+            a.Edges.Add(b, weight);
+            b.Edges.Add(a, weight);
+        }
+        public void AddDirectedEdge(Vertex<T> start, Vertex<T> end, double weight)
+        {
+            start.Edges.Add(end, weight);
         }
         public Vertex<T> GetVertex(T value)
         {
@@ -54,13 +63,35 @@ namespace All_Graphs
             A.Edges.Remove(B);
             B.Edges.Remove(A);
         }
-        void DepthFirstTraversal(Vertex<T> start)
+        
+        public bool ContainsLoop(Vertex<T> start)
         {
-            throw new NotImplementedException();
+            // Depth First Search
+            Stack<Vertex<T>> stack = new Stack<Vertex<T>>();
+            HashSet<Vertex<T>> visited = new HashSet<Vertex<T>>();
+            
+            stack.Push(Vertices[0]);
+            while (stack.Count != 0)
+            {
+                Vertex<T> curr = stack.Pop();
+                visited.Add(curr);
+                for (int i = 0; i < curr.Edges.Count; i++)
+                {
+                    //if the neighbor is within the stack already, a loop exists
+                    if (stack.Contains(curr.Edges[i]))
+                    {
+                        return true;
+                    }
+
+                    if (!visited.Contains(curr.Edges[i]))
+                    {
+                        stack.Push(curr.Edges[i]);
+                    }
+                }
+            }
+            return false;
         }
-        void BreadthFirstTraversal(Vertex<T> start)
-        {
-            throw new NotImplementedException();
-        }
+
+
     }
 }

@@ -32,31 +32,8 @@ namespace All_Graphs
             {
                 graph.AddEdge(new Vertex<int>(i), new Vertex<int>(i));
             }
-
-
-            // Depth First Search
-            Stack<Vertex<int>> stack = new Stack<Vertex<int>>();
-            HashSet<Vertex<int>> visited = new HashSet<Vertex<int>>();
-            stack.Push(graph.Vertices[0]);
-            while(stack.Count != 0)
-            {
-                Vertex<int> curr = stack.Pop();
-                visited.Add(curr);
-                for (int i = 0; i < curr.Edges.Count; i++)
-                {
-                    if (!visited.Contains(curr.Edges[i]))
-                    {
-                        stack.Push(curr.Edges[i]);
-                    }
-                }
-            }
-
-            // Breadth First Search: Queue
-            // determine if the graph has a cycle
-
-
-
-
+            graph.ContainsLoop()
+            Console.ReadKey();
         }
     }
 }
