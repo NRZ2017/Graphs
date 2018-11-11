@@ -23,7 +23,8 @@ namespace All_Graphs
 
             Graph<int> graph = new Graph<int>();
             List<Vertex<int>> verts = new List<Vertex<int>>();
-            for(int i = 0; i < 10; i++)
+            /*
+            for (int i = 0; i < 10; i++)
             {
                 graph.AddVertex(new Vertex<int>(i));
             }
@@ -33,6 +34,8 @@ namespace All_Graphs
                 graph.AddEdge(new Vertex<int>(i), new Vertex<int>(i));
             }
             graph.ContainsLoop()
+            */
+            
             Console.ReadKey();
         }
     }

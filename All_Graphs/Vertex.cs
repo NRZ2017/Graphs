@@ -8,13 +8,18 @@ namespace All_Graphs
 {
     class Vertex<T>
     {
-       public T Value;
-       public Dictionary<Vertex<T>,double> Edges = new Dictionary<Vertex<T>,double>(); //Dictionary<Vertex<T>, double>
+        public T Value;
+
+        public bool IsVisited = false;
+        public double TotalDistance = double.PositiveInfinity;
+        public Vertex<T> Founder = null;
+
+        public Dictionary<Vertex<T>, double> Edges = new Dictionary<Vertex<T>, double>(); //Dictionary<Vertex<T>, double>
 
         public Vertex(T value)
         {
             this.Value = value;
-            Edges = new Dictionary<Vertex<T>, double>;
+            Edges = new Dictionary<Vertex<T>, double>();
         }
     }
 

@@ -17,12 +17,12 @@ namespace All_Graphs
 
         public void AddVertex(Vertex<T> vert)
         {
-            Vertices.Add(vert); 
+            Vertices.Add(vert);
         }
 
         public bool RemoveVertex(Vertex<T> vertex)
         {
-            foreach(var vert in Vertices)
+            foreach (var vert in Vertices)
             {
                 vert.Edges.Remove(vertex);
             }
@@ -31,11 +31,9 @@ namespace All_Graphs
 
         public void AddEdge(T a, T b, double weight)
         {
-            //find the vertex with value a and b
-            Vertex<T> x;
-            Vertex<T> y;
+            //find the vertex with value a and b;
 
-            AddEdge(x, y, weight);
+            AddEdge(a, b, weight);
         }
 
         public void AddEdge(Vertex<T> a, Vertex<T> b, double weight)
@@ -49,7 +47,7 @@ namespace All_Graphs
         }
         public Vertex<T> GetVertex(T value)
         {
-            foreach(var vert in Vertices)
+            foreach (var vert in Vertices)
             {
                 if (vert.Value.Equals(value))
                 {
@@ -63,33 +61,41 @@ namespace All_Graphs
             A.Edges.Remove(B);
             B.Edges.Remove(A);
         }
-        
+
         public bool ContainsLoop(Vertex<T> start)
         {
             // Depth First Search
             Stack<Vertex<T>> stack = new Stack<Vertex<T>>();
             HashSet<Vertex<T>> visited = new HashSet<Vertex<T>>();
-            
+
             stack.Push(Vertices[0]);
             while (stack.Count != 0)
             {
                 Vertex<T> curr = stack.Pop();
                 visited.Add(curr);
-                for (int i = 0; i < curr.Edges.Count; i++)
+                foreach (Vertex<T> neighbor in curr.Edges.Keys)
                 {
                     //if the neighbor is within the stack already, a loop exists
-                    if (stack.Contains(curr.Edges[i]))
+                    if (stack.Contains(neighbor))
                     {
                         return true;
                     }
 
-                    if (!visited.Contains(curr.Edges[i]))
+                    if (!visited.Contains(neighbor))
                     {
-                        stack.Push(curr.Edges[i]);
+                        stack.Push(neighbor);
                     }
                 }
             }
             return false;
+        }
+
+        public IEnumerable<T> FastestPath(Vertex<T> start, Vertex<T> end)
+        {
+            //intiliaze the variables
+
+
+            return null;
         }
 
 
