@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace All_Graphs
 {
-    class Vertex<T>
+    class Vertex<T> : IComparable<Vertex<T>> where T : IComparable<T> 
     {
         public T Value;
 
@@ -20,6 +20,16 @@ namespace All_Graphs
         {
             this.Value = value;
             Edges = new Dictionary<Vertex<T>, double>();
+        }
+
+        public int CompareTo(Vertex<T> other)
+        {
+            return TotalDistance.CompareTo(other.TotalDistance);
+        }
+
+        public override string ToString()
+        {
+            return Value.ToString();
         }
     }
 

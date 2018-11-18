@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace All_Graphs
 {
-    class Graph<T>
+    class Graph<T> where T : IComparable<T>
     {
         public List<Vertex<T>> Vertices = new List<Vertex<T>>();
         public int EdgeCount { get; private set; }
+        
 
         public Graph()
         {
@@ -32,8 +33,15 @@ namespace All_Graphs
         public void AddEdge(T a, T b, double weight)
         {
             //find the vertex with value a and b;
+            var x = GetVertex(a);
+            var y = GetVertex(b);
 
-            AddEdge(a, b, weight);
+            if(x == null || y == null)
+            {
+                throw new Exception("verticies not found");
+            }
+
+            AddEdge(x, y, weight);
         }
 
         public void AddEdge(Vertex<T> a, Vertex<T> b, double weight)
@@ -90,12 +98,61 @@ namespace All_Graphs
             return false;
         }
 
-        public IEnumerable<T> FastestPath(Vertex<T> start, Vertex<T> end)
+        public IEnumerable<Vertex<T>> FastestPath(Vertex<T> start, Vertex<T> end)
         {
             //intiliaze the variables
+            for(int i = 0; i < Vertices.Count; i++)
+            {
+                Vertices[i].IsVisited = false;
+                Vertices[i].TotalDistance = double.PositiveInfinity;
+                Vertices[i].Founder = null;
+            }
 
+            start.TotalDistance = 0;
+            PriorityQueue<Vertex<T>> queue = new PriorityQueue<Vertex<T>>();
+            queue.Insert(start);
 
-            return null;
+            while(queue.Count != 0)
+            {
+                var current = queue.Pop();
+                current.IsVisited = true;
+
+                //loop through curr neighbors
+                foreach (var edge in current.Edges)
+                {
+                    int tent = (int)(current.TotalDistance + edge.Value);
+                    if(tent < edge.Key.TotalDistance)
+                    {
+                        edge.Key.TotalDistance = tent;
+                        edge.Key.Founder = current;
+                        edge.Key.IsVisited = false;   
+                    }
+
+                    if (!edge.Key.IsVisited && !queue.Contains(edge.Key))
+                    {
+                        queue.Insert(edge.Key);
+                    }
+                }
+            }
+
+            if(end.Founder == null)
+            {
+                return null;
+            }
+
+            
+            List<Vertex<T>> path = new List<Vertex<T>>();
+            var curr = end;
+            while(curr != null)
+            {
+                path.Add(curr);
+                curr = curr.Founder;
+            }
+
+            //keep adding founders until 
+
+            path.Reverse();
+            return path;
         }
 
 
